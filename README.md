@@ -1,4 +1,4 @@
-
+<img src = "./imgs/bannerGithub.png"/>
 <h1> U-VOTE </h1>
 <p> Este es un sistema de votaciones sencillo y minimalista con el objetivo de crear encuestas y compartirlas de manera rapida y segura.</p>
 
