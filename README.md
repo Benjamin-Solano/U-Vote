@@ -1,5 +1,5 @@
 <img src = "./imgs/bannerGithub.png"/>
-<h1 align="center"> U-VOTE </h1>
+<h1 align="center"> 🫵 U-VOTE 🫵 </h1>
 <p> Este es un sistema de votaciones sencillo y minimalista con el objetivo de crear encuestas y compartirlas de manera rapida y segura.</p>
 
 
@@ -20,7 +20,7 @@ Entonces...
 
 Fueron preguntas que tiramos al aire entre los fiscales, y durante las vacaciones universitarias me dediqué a crear una aplicación web sencilla y minimalista pero significativa para llegar a más estudiantes, llamándola "U-Vote" como un juego de palabras siendo la "U" con doble significado. </p>
 
-<h2 align="center">Herramientas</h2>
+<h2 align="center"> 🛠️ Herramientas 🛠️</h2>
 <p>
 <h3>BD</h3>
 PostgreSQL
