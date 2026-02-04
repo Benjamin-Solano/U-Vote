@@ -41,7 +41,7 @@ React Router </br>
 Recharts </br>
 Framer Motion </br>
 
-<h3>Asistencia</h3>
+<h3>👨‍💻 Asistencia 👨‍💻</h3>
 Claude.ai (diseño visual) </br>
 ChatGPT (Corrección de bugs) </br>
 Postman (Comprobación de Endpoints) </br>
@@ -52,3 +52,5 @@ VS Code </br>
 IntelliJ IDEA </br>
 pgAdmin 4 </br>
 </p>
+
+<h4>Creado por Benjamin Solano</h4>
