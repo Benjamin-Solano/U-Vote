@@ -1,6 +1,6 @@
 <img src = "./imgs/bannerGithub.png"/>
 <h1 align="center"> 🫵 U-VOTE 🫵 </h1>
-<p> Este es un sistema de votaciones sencillo y minimalista con el objetivo de crear encuestas y compartirlas de manera rapida y segura.</p>
+<p> pensada para facilitar la creación y participación en votaciones de forma clara y ordenada. Permite a los usuarios crear encuestas, votar de manera sencilla y visualizar los resultados en tiempo real, promoviendo la participación y la toma de decisiones colectivas. Su objetivo principal es ofrecer un espacio accesible y confiable donde comunidades, como estudiantes u organizaciones, puedan expresar su opinión y llegar a acuerdos de forma transparente.</p>
 
 
 <h2 align="center"> ¿Por qué nace este proyecto? </h2>
