@@ -259,13 +259,6 @@ export default function Login() {
                         <span>Recordarme por 30 días</span>
                      </label>
 
-                     <button
-                        type="button"
-                        className="uv-link-btn"
-                        onClick={() => alert("Funcionalidad pendiente")}
-                     >
-                        ¿Olvidaste tu contraseña?
-                     </button>
                   </div>
 
                   <button className="uv-primary-btn" type="submit" disabled={!canSubmit}>
