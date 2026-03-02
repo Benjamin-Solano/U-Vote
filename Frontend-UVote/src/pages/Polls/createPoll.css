@@ -650,3 +650,9 @@
 .uv-hidden {
    display: none;
 }
+
+
+.uv-polls-scope .uv-option-card {
+  opacity: 1 !important;
+  transform: none !important;
+}

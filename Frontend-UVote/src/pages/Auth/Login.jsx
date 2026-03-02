@@ -212,7 +212,7 @@ export default function Login() {
                         <input
                            type="email"
                            name="correo"
-                           placeholder="ejemplo@correo.com"
+                           placeholder="nombre.apellido1.apellido2@est.una.ac.cr"
                            value={form.correo}
                            onChange={onChange}
                            onBlur={onBlur}
@@ -259,13 +259,6 @@ export default function Login() {
                         <span>Recordarme por 30 días</span>
                      </label>
 
-                     <button
-                        type="button"
-                        className="uv-link-btn"
-                        onClick={() => alert("Funcionalidad pendiente")}
-                     >
-                        ¿Olvidaste tu contraseña?
-                     </button>
                   </div>
 
                   <button className="uv-primary-btn" type="submit" disabled={!canSubmit}>
