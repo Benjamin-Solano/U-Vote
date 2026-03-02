@@ -10,6 +10,7 @@ import { optionsApi } from "../../api/options.api";
 import "./createPoll.css";
 
 const MAX_IMG_MB = 3;
+const FLASH_KEY = "uv_create_poll_flash";
 
 const emptyOption = () => ({
    key: crypto.randomUUID(),
@@ -305,7 +306,6 @@ export default function CreatePoll() {
    const [options, setOptions] = useState([emptyOption(), emptyOption()]);
    const [optImgErrors, setOptImgErrors] = useState({});
 
-
    const [optionsListKey, setOptionsListKey] = useState(0);
 
    // Estado
@@ -319,6 +319,26 @@ export default function CreatePoll() {
    const [lastPollId, setLastPollId] = useState(null);
 
    const cropperKey = useMemo(() => `${coverSrc}::${cropOpen}`, [coverSrc, cropOpen]);
+
+   // Mostrar confirmación luego de recargar (solo cuando se crea)
+   useEffect(() => {
+      try {
+         const raw = sessionStorage.getItem(FLASH_KEY);
+         if (!raw) return;
+         sessionStorage.removeItem(FLASH_KEY);
+
+         const parsed = JSON.parse(raw);
+         if (parsed?.type === "success" && parsed?.msg) {
+            setSuccessMsg(String(parsed.msg));
+            setLastPollId(parsed?.pollId ?? null);
+            setErrorMsg("");
+            setSubmitted(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+         }
+      } catch {
+         // noop
+      }
+   }, []);
 
    useEffect(() => {
       return () => {
@@ -610,17 +630,23 @@ export default function CreatePoll() {
 
          await replaceOptions(encuestaId);
 
-         setLastPollId(encuestaId);
-         setSuccessMsg(
-            isEdit
-               ? "Cambios guardados correctamente."
-               : "Encuesta creada correctamente. Ya puedes compartirla o revisarla en detalle."
-         );
-
+         // En creación: recargamos la página y persistimos el mensaje para mostrarlo después.
          if (!isEdit) {
-            handleClear();
-            setSubmitted(false);
+            sessionStorage.setItem(
+               FLASH_KEY,
+               JSON.stringify({
+                  type: "success",
+                  msg: "Encuesta creada correctamente. Ya puedes compartirla o revisarla en detalle.",
+                  pollId: encuestaId,
+               })
+            );
+            window.location.reload();
+            return;
          }
+
+         // En edición: mantenemos el comportamiento actual sin recargar.
+         setLastPollId(encuestaId);
+         setSuccessMsg("Cambios guardados correctamente.");
       } catch (e) {
          console.error("CREATE/EDIT POLL ERROR:", e?.response?.data ?? e);
          const msg =
@@ -647,7 +673,6 @@ export default function CreatePoll() {
       clearCover();
       setOptImgErrors({});
       setOptions([emptyOption(), emptyOption()]);
-
 
       setOptionsListKey((k) => k + 1);
    }
@@ -681,7 +706,7 @@ export default function CreatePoll() {
             <div className="uv-polls-page">
                <motion.div
                   className="uv-card"
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 1, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                >
@@ -696,7 +721,6 @@ export default function CreatePoll() {
       <div className="uv-polls-scope">
          <div className="uv-polls-page">
             <motion.div className="uv-card uv-create-card" variants={pageVariants} initial="hidden" animate="show">
-
                <div className="uv-card-head">
                   <button className="uv-btn uv-btn-ghost uv-card-back" onClick={() => navigate(-1)} disabled={saving}>
                      <FiArrowLeft /> Volver
@@ -705,7 +729,6 @@ export default function CreatePoll() {
                   <h1 className="uv-polls-title">{isEdit ? "Editar encuesta" : "Crear encuesta"}</h1>
                   <p className="uv-muted">Define la encuesta y agrega sus opciones. (Mínimo 2)</p>
                </div>
-
 
                {successMsg ? (
                   <div className="uv-alert uv-alert-success">
@@ -733,7 +756,6 @@ export default function CreatePoll() {
                   </div>
                ) : null}
 
-
                <div className="uv-field">
                   <Label>Foto / portada</Label>
 
@@ -742,7 +764,12 @@ export default function CreatePoll() {
                         <div className="uv-cover-preview">
                            <img src={coverPreview} alt="Portada" />
                            <div className="uv-cover-tools">
-                              <button type="button" className="uv-btn uv-btn-ghost" onClick={onPickCoverClick} disabled={saving}>
+                              <button
+                                 type="button"
+                                 className="uv-btn uv-btn-ghost"
+                                 onClick={onPickCoverClick}
+                                 disabled={saving}
+                              >
                                  <FiUpload /> Cambiar
                               </button>
                               <button type="button" className="uv-btn uv-btn-ghost" onClick={clearCover} disabled={saving}>
@@ -772,7 +799,6 @@ export default function CreatePoll() {
                   {coverError ? <div className="uv-error">{coverError}</div> : null}
                </div>
 
-
                <div className="uv-grid-2">
                   <div className="uv-field">
                      <Label required>Nombre</Label>
@@ -789,13 +815,17 @@ export default function CreatePoll() {
                      <Label>Inicio de la encuesta</Label>
                      <div className="uv-dt-row">
                         <input
-                           className={`uv-input ${submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""}`}
+                           className={`uv-input ${
+                              submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""
+                           }`}
                            type="date"
                            value={inicioDate}
                            onChange={(e) => setInicioDate(e.target.value)}
                         />
                         <input
-                           className={`uv-input ${submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""}`}
+                           className={`uv-input ${
+                              submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""
+                           }`}
                            type="time"
                            value={inicioTime}
                            onChange={(e) => setInicioTime(e.target.value)}
@@ -808,7 +838,6 @@ export default function CreatePoll() {
                      </div>
                   </div>
                </div>
-
 
                <div className="uv-grid-2">
                   <div className="uv-field">
@@ -826,13 +855,17 @@ export default function CreatePoll() {
                      <Label>Cierre de la encuesta</Label>
                      <div className="uv-dt-row">
                         <input
-                           className={`uv-input ${submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""}`}
+                           className={`uv-input ${
+                              submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""
+                           }`}
                            type="date"
                            value={cierreDate}
                            onChange={(e) => setCierreDate(e.target.value)}
                         />
                         <input
-                           className={`uv-input ${submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""}`}
+                           className={`uv-input ${
+                              submitted && (fieldErrors.fechas || fieldErrors.timeOnly) ? "uv-invalid" : ""
+                           }`}
                            type="time"
                            value={cierreTime}
                            onChange={(e) => setCierreTime(e.target.value)}
@@ -849,13 +882,7 @@ export default function CreatePoll() {
 
                <h2 className="uv-section-title">Opciones de la encuesta</h2>
 
-               <motion.div
-                  key={optionsListKey}
-                  className="uv-options"
-                  variants={listVariants}
-                  initial="hidden"
-                  animate="show"
-               >
+               <motion.div key={optionsListKey} className="uv-options" variants={listVariants} initial="hidden" animate="show">
                   {options.map((opt, idx) => {
                      const oe = fieldErrors.options?.[opt.key] || {};
                      const imgErr = optImgErrors?.[opt.key];
@@ -954,7 +981,6 @@ export default function CreatePoll() {
             </motion.div>
          </div>
 
-
          <AnimatePresence>
             {cropOpen ? (
                <motion.div
@@ -966,7 +992,6 @@ export default function CreatePoll() {
                   animate="show"
                   exit="exit"
                   onMouseDown={(e) => {
-
                      if (e.target === e.currentTarget) cancelCoverCrop();
                   }}
                >
