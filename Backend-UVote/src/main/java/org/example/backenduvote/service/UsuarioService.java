@@ -25,7 +25,6 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    // ✅ Nuevo: OTP
     private final VerificationCodeService verificationCodeService;
 
     @Value("${app.upload-dir:uploads}")

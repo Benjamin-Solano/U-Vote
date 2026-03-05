@@ -16,7 +16,7 @@ public class JwtTokenService {
 
     // ⚠ SOLO PARA DESARROLLO
     // En producción, esta clave debería venir de variables de entorno o un vault.
-    private static final String SECRET = "CAMBIA_ESTA_CLAVE_SUPER_SECRETA_PARA_DEV_1234567890";
+    private static final String SECRET = "CAMBIA_ESTA_CLAVE_SUPER_SECRETA_PARA_DEV_1234567890"; // Pruebas en Dev
     private static final long EXPIRATION_MS = 3600000L; // 1 hora
 
     private final Key signingKey;

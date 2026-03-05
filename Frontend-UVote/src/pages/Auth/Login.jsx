@@ -218,6 +218,9 @@ export default function Login() {
                            onBlur={onBlur}
                            autoComplete="email"
                            required
+                           pattern="^[a-zA-Z0-9._%+-]+@est\.una\.ac\.cr$"
+                           title="Debe usar su correo institucional @est.una.ac.cr"
+                           className="uv-input"
                         />
                      </div>
                      {touched.correo && fieldErrors.correo && (
