@@ -1,0 +1,161 @@
+/* =========================
+   VerifyCode (OTP) - Refactor U-Vote
+   Paleta base: #efede3 / #302f2c
+   ========================= */
+
+:root {
+   --uv-ink: #302f2c;
+   --uv-ink-92: rgba(48, 47, 44, 0.92);
+   --uv-ink-72: rgba(48, 47, 44, 0.72);
+
+   --uv-surface: rgba(255, 255, 255, 0.45);
+   --uv-surface-65: rgba(255, 255, 255, 0.65);
+   --uv-surface-78: rgba(255, 255, 255, 0.78);
+
+   --uv-bd-10: rgba(48, 47, 44, 0.10);
+   --uv-bd-14: rgba(48, 47, 44, 0.14);
+   --uv-bd-18: rgba(48, 47, 44, 0.18);
+   --uv-bd-36: rgba(48, 47, 44, 0.36);
+
+   --uv-radius-lg: 14px;
+   --uv-radius-md: 12px;
+
+   --uv-shadow-focus: 0 0 0 4px rgba(48, 47, 44, 0.10);
+
+   --uv-ok-bd: rgba(40, 120, 60, 0.25);
+   --uv-ok-bg: rgba(40, 120, 60, 0.06);
+}
+
+/* ✅ Mensaje OK (reutiliza la lógica visual de tus alerts) */
+.uv-login-alert--ok {
+   border-color: var(--uv-ok-bd);
+   background: var(--uv-ok-bg);
+}
+
+/* Card contenedor del OTP */
+.uv-otp-block {
+   border: 1px solid var(--uv-bd-14);
+   background: var(--uv-surface);
+   border-radius: var(--uv-radius-lg);
+   padding: 12px 12px 10px;
+   /* si ya usas blur en otras cards, esto lo alinea */
+   backdrop-filter: blur(10px);
+}
+
+/* Header */
+.uv-otp-head {
+   display: grid;
+   gap: 6px;
+   margin-bottom: 10px;
+}
+
+.uv-otp-label {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   font-weight: 850;
+   color: var(--uv-ink);
+   font-size: 0.92rem;
+}
+
+.uv-otp-hint {
+   color: var(--uv-ink-72);
+   font-size: 0.86rem;
+   line-height: 1.25;
+}
+
+/* Inputs OTP */
+.uv-otp-inputs {
+   display: grid;
+   grid-template-columns: repeat(6, minmax(0, 1fr));
+   gap: 10px;
+}
+
+/* Input base */
+.uv-otp-input {
+   height: 46px;
+   width: 100%;
+   border-radius: var(--uv-radius-md);
+   border: 1px solid var(--uv-bd-18);
+   background: var(--uv-surface-65);
+
+   text-align: center;
+   font-size: 1.12rem;
+   font-weight: 900;
+   letter-spacing: 0.03em;
+   color: var(--uv-ink);
+
+   outline: none;
+   transition:
+      box-shadow 160ms ease,
+      border-color 160ms ease,
+      background 160ms ease,
+      transform 120ms ease;
+}
+
+/* Mejor foco (accesible y coherente con el resto) */
+.uv-otp-input:focus,
+.uv-otp-input:focus-visible {
+   border-color: var(--uv-bd-36);
+   box-shadow: var(--uv-shadow-focus);
+   background: var(--uv-surface-78);
+}
+
+/* Estado "filled" */
+.uv-otp-input.uv-otp-filled {
+   background: var(--uv-surface-78);
+}
+
+/* Detalle sutil: hover solo en desktop */
+@media (hover: hover) and (pointer: fine) {
+   .uv-otp-input:hover {
+      background: rgba(255, 255, 255, 0.72);
+      transform: translateY(-1px);
+   }
+}
+
+/* Acciones */
+.uv-otp-actions {
+   margin-top: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 10px;
+}
+
+.uv-otp-timer {
+   color: var(--uv-ink-72);
+   font-size: 0.9rem;
+   font-weight: 750;
+}
+
+.uv-verify-footer {
+   margin-top: 2px;
+   display: flex;
+   justify-content: space-between;
+   gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+   .uv-otp-inputs {
+      gap: 8px;
+   }
+
+   .uv-otp-input {
+      height: 44px;
+      font-size: 1.05rem;
+   }
+
+   .uv-verify-footer {
+      flex-direction: column;
+      align-items: flex-start;
+   }
+}
+
+/* Opcional: usuarios con reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+   .uv-otp-input {
+      transition: none;
+   }
+}

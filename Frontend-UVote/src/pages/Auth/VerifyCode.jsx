@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FiMail, FiRefreshCw, FiShield, FiCheckCircle, FiArrowLeft } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import "./login.css";
+import "./verify.css";
 import logo from "../../assets/U-VoteLogo.png";
 
 import { authApi } from "../../api/auth.api";
