@@ -207,7 +207,7 @@ export default function Register() {
                         <input
                            type="email"
                            name="correo"
-                           placeholder="ejemplo@correo.com"
+                           placeholder="nombre.apellido1.apellido2@est.una.ac.cr"
                            value={form.correo}
                            onChange={onChange}
                            onBlur={onBlur}

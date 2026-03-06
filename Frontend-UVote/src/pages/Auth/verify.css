@@ -26,7 +26,7 @@
    --uv-ok-bg: rgba(40, 120, 60, 0.06);
 }
 
-/* ✅ Mensaje OK (reutiliza la lógica visual de tus alerts) */
+/* Mensaje OK (reutiliza la lógica visual de tus alerts) */
 .uv-login-alert--ok {
    border-color: var(--uv-ok-bd);
    background: var(--uv-ok-bg);

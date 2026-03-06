@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from "react-icons/fi";
 import "./footer.css";
 
+import logo from "../../assets/U-VoteLogoW.png";
+
 function Footer() {
    return (
       <motion.footer
@@ -13,7 +15,7 @@ function Footer() {
       >
          <div className="container uv-footer-inner">
             <div className="uv-footer-brand">
-               <div className="uv-footer-title">U-Vote</div>
+               <div className="uv-footer-title"> <img src={logo} alt="U-Vote" className="uv-brand-logo" /> U-Vote</div>
                <div className="uv-footer-sub">
                   Plataforma minimalista para crear y gestionar encuestas.
                </div>
@@ -23,7 +25,7 @@ function Footer() {
                <div>
                   <div className="uv-footer-h">Enlaces</div>
                   <a className="uv-footer-link" href="/">Inicio</a>
-                  <a className="uv-footer-link" href="/about">About</a>
+                  <a className="uv-footer-link" href="/about">Sobre el desarrollador</a>
                   <a className="uv-footer-link" href="/login">Iniciar Sesión</a>
                </div>
 
@@ -42,8 +44,6 @@ function Footer() {
          <div className="uv-footer-bottom">
             <div className="container uv-footer-bottom-inner">
                <span>© {new Date().getFullYear()} U-Vote. Todos los derechos reservados.</span>
-               <span className="uv-footer-dot">•</span>
-               <span>Hecho con #efede3 y #302f2c</span>
             </div>
          </div>
       </motion.footer>

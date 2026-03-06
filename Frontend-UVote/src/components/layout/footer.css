@@ -13,6 +13,9 @@
 }
 
 .uv-footer-title {
+   display: inline-flex;
+   align-items: center;
+   gap: 10px;
    font-size: 18px;
    font-weight: 800;
    letter-spacing: 0.2px;
@@ -99,4 +102,17 @@
 
 .uv-social-btn:hover {
    transform: translateY(-1px);
+}
+
+.uv-footer-logo {
+   width: 32px;
+   height: 32px;
+   margin-left: 12px;
+}
+
+.uv-footer-bottom-inner {
+   display: flex;
+   justify-content: center;
+   gap: 10px;
+   flex-wrap: wrap;
 }
