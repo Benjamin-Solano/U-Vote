@@ -2,18 +2,17 @@
    position: sticky;
    top: 0;
    z-index: 20;
-   background: rgba(239, 237, 227, 0.78);
+   background: rgba(239, 237, 227, 0.82);
    backdrop-filter: blur(10px);
-   border-bottom: rgba(48, 47, 44, 0.10);
 }
 
 .uv-nav-inner {
    display: flex;
    align-items: center;
    justify-content: space-between;
+   gap: 18px;
    padding: 14px 0;
 }
-
 
 .uv-brand {
    display: inline-flex;
@@ -22,11 +21,12 @@
    font-weight: 900;
    letter-spacing: 0.2px;
    text-decoration: none;
+   flex-shrink: 0;
 }
 
 .uv-brand-logo {
-   width: 34px;
-   height: 34px;
+   width: 45px;
+   height: 45px;
    object-fit: contain;
    display: block;
 }
@@ -36,82 +36,230 @@
    color: #302f2c;
 }
 
-
 .uv-links {
    display: flex;
    align-items: center;
-   gap: 6px;
+   gap: 14px;
+   flex-wrap: wrap;
 }
 
+/* =========================
+   Botones principales
+   ========================= */
 .uv-link {
+   position: relative;
    display: inline-flex;
    align-items: center;
-   gap: 8px;
-   padding: 9px 10px;
+   justify-content: center;
+   gap: 10px;
+   min-height: 46px;
+   padding: 0 20px;
    border-radius: 999px;
-   font-weight: 750;
-   color: rgba(48, 47, 44, 0.82);
-   border: 1px solid transparent;
+   border: 1.5px solid rgba(239, 237, 227, 0.58);
+   background: linear-gradient(180deg, #3a3935 0%, #302f2c 100%);
+   color: #efede3 !important;
    text-decoration: none;
-   transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+   font-weight: 800;
+   line-height: 1;
+   letter-spacing: 0.2px;
+   box-shadow:
+      0 0 0 1px rgba(48, 47, 44, 0.10),
+      0 6px 16px rgba(48, 47, 44, 0.18),
+      0 0 10px rgba(48, 47, 44, 0.08);
+   transition:
+      transform 180ms ease,
+      background 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      color 180ms ease;
+   overflow: hidden;
+}
+
+.uv-link::before {
+   content: "";
+   position: absolute;
+   inset: 0;
+   border-radius: inherit;
+   padding: 1px;
+   background: linear-gradient(
+      90deg,
+      rgba(239, 237, 227, 0.95),
+      rgba(239, 237, 227, 0.45),
+      rgba(239, 237, 227, 0.95)
+   );
+   -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+   -webkit-mask-composite: xor;
+   mask-composite: exclude;
+   pointer-events: none;
+   opacity: 0.9;
+}
+
+.uv-link:visited,
+.uv-link:focus,
+.uv-link:active {
+   color: #efede3 !important;
+   text-decoration: none;
+}
+
+.uv-link svg {
+   flex-shrink: 0;
+   color: #efede3 !important;
+   font-size: 1rem;
+   transition: color 180ms ease, transform 180ms ease;
+}
+
+.uv-link-label {
+   display: inline-block;
+   color: #efede3 !important;
+   font-weight: 800;
+   line-height: 1;
+   white-space: nowrap;
+   transition: color 180ms ease;
 }
 
 .uv-link:hover {
-   background: rgba(48, 47, 44, 0.06);
-   border-color: rgba(48, 47, 44, 0.10);
+   transform: translateY(-2px);
+   background: linear-gradient(180deg, #f4f1e8 0%, #efede3 100%);
+   color: #302f2c !important;
+   border-color: rgba(48, 47, 44, 0.18);
+   box-shadow:
+      0 10px 24px rgba(48, 47, 44, 0.16),
+      0 0 0 1px rgba(48, 47, 44, 0.08),
+      0 0 12px rgba(239, 237, 227, 0.55);
+}
+
+.uv-link:hover::before {
+   opacity: 0.45;
+}
+
+.uv-link:hover svg,
+.uv-link:hover .uv-link-label {
+   color: #302f2c !important;
+}
+
+.uv-link:hover svg {
+   transform: scale(1.04);
 }
 
 .uv-link.active {
-   background: rgba(48, 47, 44, 0.08);
-   border-color: rgba(48, 47, 44, 0.16);
-   color: rgba(48, 47, 44, 0.92);
+   background: linear-gradient(180deg, #f4f1e8 0%, #efede3 100%);
+   color: #302f2c !important;
+   border-color: rgba(48, 47, 44, 0.20);
+   box-shadow:
+      0 8px 20px rgba(48, 47, 44, 0.14),
+      0 0 0 1px rgba(48, 47, 44, 0.08);
 }
 
-.uv-link-primary {
-   background: #efede3;
-   color: rgba(48, 47, 44, 0.92);
+.uv-link.active::before {
+   opacity: 0.35;
 }
 
+.uv-link.active svg,
+.uv-link.active .uv-link-label {
+   color: #302f2c !important;
+}
 
+/* =========================
+   Botón de usuario
+   ========================= */
 .uv-user {
    position: relative;
 }
 
 .uv-user-btn {
+   position: relative;
    display: inline-flex;
    align-items: center;
    gap: 10px;
-   padding: 7px 10px;
+   min-height: 46px;
+   padding: 0 14px 0 10px;
    border-radius: 999px;
-   border: 1px solid rgba(48, 47, 44, 0.10);
-   background: rgba(255, 255, 255, 0.35);
+   border: 1.5px solid rgba(239, 237, 227, 0.58);
+   background: linear-gradient(180deg, #3a3935 0%, #302f2c 100%);
+   color: #efede3;
    cursor: pointer;
+   box-shadow:
+      0 0 0 1px rgba(48, 47, 44, 0.10),
+      0 6px 16px rgba(48, 47, 44, 0.18),
+      0 0 10px rgba(48, 47, 44, 0.08);
+   transition:
+      transform 180ms ease,
+      background 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+   overflow: hidden;
 }
 
+.uv-user-btn::before {
+   content: "";
+   position: absolute;
+   inset: 0;
+   border-radius: inherit;
+   padding: 1px;
+   background: linear-gradient(
+      90deg,
+      rgba(239, 237, 227, 0.95),
+      rgba(239, 237, 227, 0.45),
+      rgba(239, 237, 227, 0.95)
+   );
+   -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+   -webkit-mask-composite: xor;
+   mask-composite: exclude;
+   pointer-events: none;
+   opacity: 0.9;
+}
+
+.uv-user-btn:hover,
 .uv-user-btn.open {
-   background: rgba(48, 47, 44, 0.08);
+   transform: translateY(-2px);
+   background: linear-gradient(180deg, #f4f1e8 0%, #efede3 100%);
+   border-color: rgba(48, 47, 44, 0.18);
+   box-shadow:
+      0 10px 24px rgba(48, 47, 44, 0.16),
+      0 0 0 1px rgba(48, 47, 44, 0.08),
+      0 0 12px rgba(239, 237, 227, 0.55);
+}
+
+.uv-user-btn:hover::before,
+.uv-user-btn.open::before {
+   opacity: 0.45;
 }
 
 .uv-user-name {
+   color: #efede3 !important;
    font-weight: 850;
-   color: rgba(48, 47, 44, 0.92);
+   line-height: 1;
+   white-space: nowrap;
+   transition: color 180ms ease;
+}
+
+.uv-user-btn:hover .uv-user-name,
+.uv-user-btn.open .uv-user-name {
+   color: #302f2c !important;
 }
 
 .uv-avatar-nav {
-   width: 28px;
-   height: 28px;
+   width: 30px;
+   height: 30px;
    border-radius: 999px;
    overflow: hidden;
-   border: 1px solid rgba(48, 47, 44, 0.14);
-   background: rgba(255, 255, 255, 0.55);
+   border: 1px solid rgba(239, 237, 227, 0.45);
+   background: rgba(255, 255, 255, 0.72);
    display: grid;
    place-items: center;
+   flex-shrink: 0;
+   box-shadow: inset 0 0 0 1px rgba(48, 47, 44, 0.06);
 }
 
 .uv-avatar-nav img {
    width: 100%;
    height: 100%;
    object-fit: cover;
+   display: block;
 }
 
 .uv-avatar-fallback {
@@ -120,18 +268,21 @@
    color: #302f2c;
 }
 
-
+/* =========================
+   Menú desplegable
+   ========================= */
 .uv-user-menu {
    position: absolute;
    right: 0;
-   top: calc(100% + 10px);
-   width: 220px;
-   border: 1px solid rgba(48, 47, 44, 0.12);
-   background: rgba(239, 237, 227, 0.95);
-   backdrop-filter: blur(10px);
-   border-radius: 14px;
-   box-shadow: 0 18px 46px rgba(48, 47, 44, 0.14);
+   top: calc(100% + 12px);
+   width: 228px;
    padding: 8px;
+   border-radius: 16px;
+   border: 1px solid rgba(48, 47, 44, 0.12);
+   background: rgba(239, 237, 227, 0.97);
+   backdrop-filter: blur(10px);
+   box-shadow: 0 20px 40px rgba(48, 47, 44, 0.16);
+   color: #302f2c;
 }
 
 .uv-user-item {
@@ -139,28 +290,33 @@
    display: inline-flex;
    align-items: center;
    gap: 10px;
-   padding: 10px;
+   padding: 11px 12px;
    border-radius: 12px;
    border: 1px solid transparent;
    background: transparent;
+   color: rgba(48, 47, 44, 0.90);
+   font-weight: 800;
    cursor: pointer;
-   font-weight: 850;
-   color: rgba(48, 47, 44, 0.88);
-   transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+   transition:
+      background 160ms ease,
+      border-color 160ms ease,
+      transform 160ms ease,
+      color 160ms ease;
 }
 
 .uv-user-item:hover {
    background: rgba(48, 47, 44, 0.06);
+   border-color: rgba(48, 47, 44, 0.08);
+   transform: translateX(2px);
 }
-
 
 .uv-user-item.danger {
    color: #b23b3b;
 }
 
 .uv-user-item.danger:hover {
-   background: rgba(178, 59, 59, 0.14);
-   border-color: rgba(178, 59, 59, 0.28);
+   background: rgba(178, 59, 59, 0.12);
+   border-color: rgba(178, 59, 59, 0.24);
 }
 
 .uv-user-sep {
@@ -169,9 +325,26 @@
    background: rgba(48, 47, 44, 0.10);
 }
 
-
+/* =========================
+   Responsive
+   ========================= */
 @media (max-width: 760px) {
-   .uv-user-name {
+   .uv-brand-text,
+   .uv-user-name,
+   .uv-link-label {
       display: none;
+   }
+
+   .uv-links {
+      gap: 10px;
+   }
+
+   .uv-link {
+      min-width: 46px;
+      padding: 0 14px;
+   }
+
+   .uv-user-btn {
+      padding: 0 8px;
    }
 }

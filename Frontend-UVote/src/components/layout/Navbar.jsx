@@ -34,6 +34,7 @@ export default function Navbar() {
          if (!menuRef.current) return;
          if (!menuRef.current.contains(e.target)) setOpen(false);
       };
+
       document.addEventListener("mousedown", onDocClick);
       return () => document.removeEventListener("mousedown", onDocClick);
    }, []);
@@ -47,22 +48,22 @@ export default function Navbar() {
    return (
       <header className="uv-nav">
          <div className="container uv-nav-inner">
-
             <NavLink to="/" className="uv-brand" aria-label="Ir al inicio">
                <img src={logo} alt="U-Vote" className="uv-brand-logo" />
-               <span className="uv-brand-text">U-Vote</span>
             </NavLink>
 
             <nav className="uv-links" aria-label="Navegación principal">
                <NavLink to="/" className={linkClass}>
-                  <FiHome /> Inicio
+                  <FiHome />
+                  <span className="uv-link-label">Inicio</span>
                </NavLink>
 
                <NavLink
                   to={isAuthenticated ? "/encuestas/crear" : "/login"}
                   className={linkClass}
                >
-                  <FiPlusCircle /> Crear Encuesta
+                  <FiPlusCircle />
+                  <span className="uv-link-label">Crear Encuesta</span>
                </NavLink>
 
                {!isAuthenticated ? (
@@ -70,7 +71,8 @@ export default function Navbar() {
                      to="/login"
                      className={`${linkClass({ isActive: false })} uv-link-primary`}
                   >
-                     <FiLogIn /> Iniciar Sesión
+                     <FiLogIn />
+                     <span className="uv-link-label">Iniciar Sesión</span>
                   </NavLink>
                ) : (
                   <div className="uv-user" ref={menuRef}>
@@ -105,7 +107,8 @@ export default function Navbar() {
                               }}
                               role="menuitem"
                            >
-                              <FiUser /> Perfil
+                              <FiUser />
+                              <span>Perfil</span>
                            </button>
 
                            <div className="uv-user-sep" />
@@ -116,7 +119,8 @@ export default function Navbar() {
                               onClick={handleLogout}
                               role="menuitem"
                            >
-                              <FiLogOut /> Cerrar sesión
+                              <FiLogOut />
+                              <span>Cerrar sesión</span>
                            </button>
                         </div>
                      )}
@@ -127,4 +131,3 @@ export default function Navbar() {
       </header>
    );
 }
-

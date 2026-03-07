@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from "react-icons/fi";
+import { FiLinkedin, FiGithub } from "react-icons/fi";
 import "./footer.css";
 
 import logo from "../../assets/U-VoteLogoW.png";
@@ -16,9 +16,6 @@ function Footer() {
          <div className="container uv-footer-inner">
             <div className="uv-footer-brand">
                <div className="uv-footer-title"> <img src={logo} alt="U-Vote" className="uv-brand-logo" /> U-Vote</div>
-               <div className="uv-footer-sub">
-                  Plataforma minimalista para crear y gestionar encuestas.
-               </div>
             </div>
 
             <div className="uv-footer-cols">
@@ -32,10 +29,8 @@ function Footer() {
                <div>
                   <div className="uv-footer-h">Síguenos</div>
                   <div className="uv-social">
-                     <a className="uv-social-btn" href="#" aria-label="Facebook"><FiFacebook /></a>
-                     <a className="uv-social-btn" href="#" aria-label="Twitter"><FiTwitter /></a>
-                     <a className="uv-social-btn" href="#" aria-label="Instagram"><FiInstagram /></a>
-                     <a className="uv-social-btn" href="#" aria-label="LinkedIn"><FiLinkedin /></a>
+                     <a className="uv-social-btn" href="https://github.com/Benjamin-Solano" aria-label="Github"><FiGithub /></a>
+                     <a className="uv-social-btn" href="https://www.linkedin.com/in/inng-benjamin-solano/" aria-label="LinkedIn del desarrollador"><FiLinkedin /></a>
                   </div>
                </div>
             </div>
