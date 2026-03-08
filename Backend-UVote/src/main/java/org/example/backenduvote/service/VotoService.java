@@ -1,5 +1,6 @@
 package org.example.backenduvote.service;
 
+import org.example.backenduvote.dtos.ResultadoOpcionDetalleResponse;
 import org.example.backenduvote.dtos.VotoCreateRequest;
 import org.example.backenduvote.dtos.VotoResponse;
 import org.example.backenduvote.model.Encuesta;
@@ -15,8 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.example.backenduvote.dtos.ResultadoOpcionDetalleResponse;
-
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -56,6 +55,8 @@ public class VotoService {
             throw new IllegalArgumentException("La encuesta ya está cerrada");
         }
 
+        validarElegibilidad(usuarioActual, encuesta);
+
         Long opcionId = request.getOpcionId();
 
         Opcion opcion = opcionRepository.findById(opcionId)
@@ -65,7 +66,6 @@ public class VotoService {
             throw new IllegalArgumentException("La opción no pertenece a esta encuesta");
         }
 
-        // validación rápida (amigable) antes de intentar insertar
         if (votoRepository.existsByUsuarioIdAndEncuestaId(usuarioActual.getId(), encuestaId)) {
             throw new IllegalArgumentException("Ya has votado en esta encuesta");
         }
@@ -76,12 +76,10 @@ public class VotoService {
         voto.setOpcionId(opcionId);
         voto.setImagenUrl(request.getImagenUrl());
 
-
         try {
             Voto guardado = votoRepository.save(voto);
             return mapToResponse(guardado);
         } catch (DataIntegrityViolationException e) {
-            // respaldo por si hubo condición de carrera: BD asegura el UNIQUE(usuario_id, encuesta_id)
             throw new IllegalArgumentException("Ya has votado en esta encuesta");
         }
     }
@@ -93,11 +91,22 @@ public class VotoService {
         return votoRepository.contarVotosPorOpcionConNombre(encuestaId)
                 .stream()
                 .map(row -> new ResultadoOpcionDetalleResponse(
-                        (Long) row[0],     // opcionId
-                        (String) row[1],   // nombre
-                        (Long) row[2]      // count(v) es Long
+                        (Long) row[0],
+                        (String) row[1],
+                        (Long) row[2]
                 ))
                 .toList();
+    }
+
+    private void validarElegibilidad(Usuario usuario, Encuesta encuesta) {
+        if (encuesta.getCampusCarrera() == null) {
+            return;
+        }
+
+        if (usuario.getCampusCarrera() == null ||
+                !encuesta.getCampusCarrera().getId().equals(usuario.getCampusCarrera().getId())) {
+            throw new IllegalArgumentException("No perteneces al campus y carrera requeridos para votar en esta encuesta");
+        }
     }
 
     private Usuario obtenerUsuarioAutenticado() {
@@ -120,6 +129,5 @@ public class VotoService {
                 v.getImagenUrl(),
                 v.getCreadoEn()
         );
-
     }
 }
